@@ -1,84 +1,84 @@
-import React, {Component} from 'react';
-import { StatusBar, KeyboardAvoidingView } from 'react-native';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { StatusBar, KeyboardAvoidingView } from 'react-native';
 
-import {Container} from '../components/Container';
-import {Logo} from '../components/Logo';
-import {InputWithButton} from '../components/TextInput';
-import {ClearButton} from '../components/Button';
-import {LastConverted} from '../components/Text';
+import { Container } from '../components/Container';
+import { Logo } from '../components/Logo';
+import { InputWithButton } from '../components/TextInput';
+import { ClearButton } from '../components/Button';
+import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 
 const TEMP_BASE_CURRENCY = 'USD';
-const TEMP_QUOTE_CURRENCY = 'IDR';
-const PRICE_BASE_CURRENCY = '1';
-const PRICE_QUOTE_CURRENCY = '14000';
-const TEMP_CONVERSION_RATE = 14000;
-const TEMP_CONVERSION_DATE = new Date()
+const TEMP_QUOTE_CURRENCY = 'GBP';
+const TEMP_BASE_PRICE = '100';
+const TEMP_QUOTE_PRICE = '79.74';
+const TEMP_LAST_CONVERTED = new Date();
+const TEMP_CONVERSION_RATE = 0.79739;
 
 class Home extends Component {
-    static propsTypes = {
-        navigation : PropTypes.object,
-    }
+  static propTypes = {
+    navigation: PropTypes.object,
+  };
 
-    handleChangeText = () => {
-        console.log('change text');
-      };
+  handleChangeText = () => {
+    console.log('change text');
+  };
 
-    handleBaseCurrency () {
-        this.props.navigation.navigate('CurrencyList');
-    }
+  handlePressBaseCurrency = () => {
+    const { navigation } = this.props;
+    navigation.navigate('CurrencyList', { title: 'Base Currency' });
+  };
 
-    handleQuoteCurrency () {
-        this.props.navigation.navigate('CurrencyList');
-    }
+  handlePressQuoteCurrency = () => {
+    const { navigation } = this.props;
+    navigation.navigate('CurrencyList', { title: 'Quote Currency' });
+  };
 
-    handleSwapCurrency () {
-        console.log("Press Reverse")
-    }
+  handleSwapCurrency = () => {
+    console.log('handle swap currency');
+  };
 
-    handleOptionPress () {
-        console.log("Press Option")
-    }
-    
-    render() {
-        return (
-        <Container>
-            <StatusBar  translucent={false} barStyle="light-content" />
-            <Header onPress={this.handleOptionPress} />
+  handleSwapCurrency = () => {
+    console.log('handle swap currency');
+  };
 
-            <KeyboardAvoidingView behavior="padding">
-            <Logo />
-            <InputWithButton
-          buttonText={TEMP_BASE_CURRENCY}
-          onPress={this.handlePressBaseCurrency}
-          defaultValue={PRICE_BASE_CURRENCY}
-          keyboardType="numeric"
-          onChangeText={this.handleChangeText}
-        />
-        <InputWithButton
-          editable={false}
-          buttonText={TEMP_QUOTE_CURRENCY}
-          onPress={this.handlePressQuoteCurrency}
-          value={PRICE_QUOTE_CURRENCY}
-        />
+  handleOptionsPress = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Options');
+  };
 
-        <LastConverted
+  render() {
+    return (
+      <Container>
+        <StatusBar backgroundColor="blue" barStyle="light-content" />
+        <Header onPress={this.handleOptionsPress} />
+        <KeyboardAvoidingView behavior="padding">
+          <Logo />
+          <InputWithButton
+            buttonText={TEMP_BASE_CURRENCY}
+            onPress={this.handlePressBaseCurrency}
+            defaultValue={TEMP_BASE_PRICE}
+            keyboardType="numeric"
+            onChangeText={this.handleChangeText}
+          />
+          <InputWithButton
+            editable={false}
+            buttonText={TEMP_QUOTE_CURRENCY}
+            onPress={this.handlePressQuoteCurrency}
+            value={TEMP_QUOTE_PRICE}
+          />
+          <LastConverted
+            date={TEMP_LAST_CONVERTED}
             base={TEMP_BASE_CURRENCY}
             quote={TEMP_QUOTE_CURRENCY}
-            date={TEMP_CONVERSION_DATE}
             conversionRate={TEMP_CONVERSION_RATE}
-        />
-
-            <ClearButton
-                text="Reverse Currencies"
-                onPress={this.handleSwapCurrency}
-            />
+          />
+          <ClearButton onPress={this.handleSwapCurrency} text="Reverse Currencies" />
         </KeyboardAvoidingView>
-        
-        </Container>
-        )
-    }
+      </Container>
+    );
+  }
 }
 
 export default Home;
