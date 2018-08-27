@@ -1,4 +1,4 @@
-# Konversi Mata Uang Rupiah dan USD
+# Konversi Mata Uang
 Menggunakan React Native
 ```npm install``` and <br />
 ```npm run android``` || ```npm run ios```
